@@ -57,7 +57,7 @@
             headers: { "Content-Type": "application/json" },
         });
 
-        const text = await response.text();
+        const text = await response.json();
 
         if (!response.ok) {
             error = text;
@@ -65,7 +65,7 @@
         }
 
         error = null;
-        user = { token: text, username };
+        user = { token: text.token, username, role: text.role };
 
         fetchArticles();
     }
@@ -123,6 +123,10 @@
         <!-- LOGOUT -->
         <button type="submit" onclick={handleLogout}>Log Out</button>
         <br />
+
+        {#if user?.role === 'Admin'}
+            <button onclick={() => window.location.href = '/admin'}>Go to Admin Page</button>
+        {/if}
 
         <!-- Articles Section -->
         <div>

@@ -185,7 +185,7 @@ app.post("/login", (req, res) => {
   }
 
   console.log('Valid login for user', username);
-  res.send(generateToken(user));
+  res.send({token: generateToken(user), role: user.role});
 });
 
 app.listen(PORT, () => {
